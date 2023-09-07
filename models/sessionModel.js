@@ -1,11 +1,8 @@
 const { Sequelize, DataTypes } = require('sequelize');
-const config = require('../config'); // Import the configuration
+const config = require('../config');
+const sequelizeInstance = require('../sequelize'); // Renamed to avoid conflict
 
-const sequelize = new Sequelize(config.database.url, {
-  dialect: 'postgres',
-});
-
-const Session = sequelize.define('Session', {
+const Session = sequelizeInstance.define('Session', {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -19,7 +16,6 @@ const Session = sequelize.define('Session', {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
-   
   startTime: {
     type: DataTypes.DATE,
     allowNull: false,
@@ -43,5 +39,7 @@ const Session = sequelize.define('Session', {
   },
   // Add more session properties as needed
 });
+
+sequelizeInstance.sync();
 
 module.exports = Session;

@@ -1,11 +1,10 @@
-const { Sequelize, DataTypes } = require('sequelize');
+
 const config = require('../config');
 
-const sequelize = new Sequelize(config.database.url, {
-  dialect: 'postgres',
-});
+const { Sequelize, DataTypes } = require('sequelize');
+const sequelizeInstance = require('../sequelize');
 
-const User = sequelize.define('User', {
+const User = sequelizeInstance.define('User', {
   universityId: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -16,14 +15,14 @@ const User = sequelize.define('User', {
     allowNull: false,
   },
   role: {
-    type: DataTypes.STRING, // Use a string type for the role
+    type: DataTypes.STRING,
     allowNull: false,
     validate: {
-      isIn: [['student', 'dean']], // Define the allowed roles
+      isIn: [['student', 'dean']],
     },
   },
 });
 
-sequelize.sync();
+sequelizeInstance.sync();
 
 module.exports = User;

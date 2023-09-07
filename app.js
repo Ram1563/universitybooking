@@ -16,7 +16,7 @@ app.use(bodyParser.json());
 
 // Routes
  
-app.use('/user', jwtMiddleware, userRoutes);
+app.use('/user',  userRoutes);
 app.use('/session', jwtMiddleware, sessionRoutes);
 
 // Error handling middleware (should come after routes)
